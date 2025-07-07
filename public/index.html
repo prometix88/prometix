@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Preview NPS</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <script src="../nps-widget.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        if (window?.NPS?.init) {
+          window.NPS.init({
+            selector: '#nps-widget',
+            question: 'Seberapa besar kemungkinan Anda merekomendasikan kami?',
+          });
+        } else {
+          console.error('NPS.init is not available');
+        }
+      });
+    </script>
+  </body>
+</html>

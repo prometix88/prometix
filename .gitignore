@@ -1,0 +1,9 @@
+node_modules
+dist
+.npmrc
+index.d.ts
+index.esm.js
+index.js
+nps-widget.min.js
+NPSWidget.d.ts
+.vscode
