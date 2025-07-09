@@ -1,27 +1,35 @@
 import './style.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { NPSWidget, NPSWidgetProps } from '@/NPSWidget';
+import App, { Props } from './App';
+import { npsConfig } from './utils';
+import { useNpsContext } from './hooks';
 
 const DEFAULT_SELECTOR = '#nps-widget';
 
-export function initNPS(props: NPSWidgetProps & { selector?: string }) {
-  let el = document.querySelector(props.selector || DEFAULT_SELECTOR);
+export function initNPS(props: Partial<Props>) {
+  let el = document.querySelector(DEFAULT_SELECTOR);
   if (!el) {
     el = document.createElement('div');
-    el.id = (props.selector || DEFAULT_SELECTOR).replace('#', '');
-    el.className = 'nps-widget';
+    el.id = DEFAULT_SELECTOR.replace('#', '');
     document.body.appendChild(el);
   }
 
   const root = ReactDOM.createRoot(el);
-  root.render(<NPSWidget {...props} />);
+  root.render(<App {...props} />);
 }
 
 if (typeof window !== 'undefined') {
-  (window as any).NPS = {
+  (window as any).NPSConfig = {
     init: initNPS,
   };
 }
 
-export { NPSWidget };
+const NPSTelkom = (props: Partial<Props>) => {
+  return (
+    <div id="nps-widget">
+      <App {...props} />
+    </div>
+  );
+};
+export { NPSTelkom, npsConfig, useNpsContext };

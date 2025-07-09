@@ -7,3 +7,7 @@ index.js
 nps-widget.min.js
 NPSWidget.d.ts
 .vscode
+utils.d.ts
+App.d.ts
+development/*
+elements/*

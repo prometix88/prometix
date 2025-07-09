@@ -8,13 +8,14 @@
     <script src="../nps-widget.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        if (window?.NPS?.init) {
-          window.NPS.init({
+        if (window?.NPSConfig?.init) {
+          window.NPSConfig.init({
             selector: '#nps-widget',
             question: 'Seberapa besar kemungkinan Anda merekomendasikan kami?',
           });
+          window.NPSConfig = {};
         } else {
-          console.error('NPS.init is not available');
+          console.error('NPSConfig.init is not available');
         }
       });
     </script>

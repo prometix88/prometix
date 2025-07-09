@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
-import { NPSWidget } from '../src/NPSWidget';
+import { NPSTelkom } from '../src/index';
 import '../src/style.css';
 
 const root = ReactDOM.createRoot(document.getElementById('app')!);
 
-root.render(<NPSWidget question="Preview dari mode dev" />);
+root.render(<NPSTelkom descriptionScore="Dari 1 (buruk) hingga 10 (sangat baik)" />);
