@@ -1,4 +1,4 @@
-import { NpsContext } from '../App';
+import { NpsContext } from './App';
 import { useContext } from 'react';
 
 export const useNpsContext = () => {

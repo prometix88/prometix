@@ -9,5 +9,6 @@ NPSWidget.d.ts
 .vscode
 utils.d.ts
 App.d.ts
+hooks.d.ts
 development/*
 elements/*

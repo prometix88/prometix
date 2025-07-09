@@ -20,7 +20,8 @@
     "LICENSE",
     "elements/**/*",
     "App.d.ts",
-    "utils.d.ts"
+    "utils.d.ts",
+    "hooks.d.ts"
   ],
   "repository": {
     "type": "git",
