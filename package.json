@@ -14,7 +14,8 @@
   "scripts": {
     "dev": "vite",
     "build": "rollup -c",
-    "prepare": "husky"
+    "prepare": "husky",
+    "release": "release-it"
   },
   "files": [
     "index.d.ts",
