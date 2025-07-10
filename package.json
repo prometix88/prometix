@@ -1,6 +1,6 @@
 {
   "name": "@solehudin5699/feedback-us",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "type": "module",
   "module": "index.esm.js",
