@@ -45,9 +45,9 @@
   },
   "homepage": "git+https://github.com/solehudin5699/nps-widget#readme",
   "description": "",
-  "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",

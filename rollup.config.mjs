@@ -8,7 +8,7 @@ import postcss from 'rollup-plugin-postcss';
 import replace from '@rollup/plugin-replace';
 import tailwind from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+// import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import prefixSelector from 'postcss-prefix-selector';
 
 const DEFAULT_SELECTOR = '#feedback-us'; //must same with DEFAULT_SELECTOR on ./src/index.tsx
@@ -29,7 +29,7 @@ export default [
     ],
     external: ['react', 'react-dom'],
     plugins: [
-      peerDepsExternal(),
+      // peerDepsExternal(),
       replace({
         preventAssignment: true,
         'process.env.NODE_ENV': JSON.stringify('production'),
@@ -81,7 +81,7 @@ export default [
       },
     ],
     plugins: [
-      peerDepsExternal(),
+      // peerDepsExternal(),
       replace({
         preventAssignment: true,
         'process.env.NODE_ENV': JSON.stringify('production'),
