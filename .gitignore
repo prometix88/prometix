@@ -4,8 +4,7 @@ dist
 index.d.ts
 index.esm.js
 index.js
-nps-widget.min.js
-NPSWidget.d.ts
+feedback-us.min.js
 .vscode
 utils.d.ts
 App.d.ts

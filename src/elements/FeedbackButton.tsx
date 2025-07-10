@@ -1,14 +1,16 @@
+'use client';
+
 import React, { useState } from 'react';
-import { npsConfig } from '../utils';
+import { feedbackConfig } from '../utils';
 import clsx from 'clsx';
 import ModalFeedback from './ModalFeedback';
-import { useNpsContext } from '../hooks';
+import { useFeedbackUs } from '../hooks';
 
 function FeedbackButton() {
   const [state, setState] = useState({
     showModal: false,
   });
-  const { config } = useNpsContext();
+  const { config } = useFeedbackUs();
 
   if (config.hideFeedbackButton) return null;
   return (
@@ -40,7 +42,7 @@ function FeedbackButton() {
             strokeLinejoin="round"
           />
         </svg>
-        {npsConfig().get().textButton}
+        {feedbackConfig().get().textButton}
       </button>
       <ModalFeedback
         show={state.showModal}

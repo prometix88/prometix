@@ -1,13 +1,17 @@
+'use client';
+
 import './style.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App, { Props } from './App';
-import { npsConfig } from './utils';
-import { useNpsContext } from './hooks';
+import App, { type Props } from './App';
+import { feedbackConfig } from './utils';
+import { useFeedbackUs } from './hooks';
 
-const DEFAULT_SELECTOR = '#nps-widget';
+export const DEFAULT_SELECTOR = '#feedback-us';
 
-export function initNPS(props: Partial<Props>) {
+export function init(
+  props: Partial<Omit<Props, 'showFeedbackModal' | 'hideFeedbackModal' | 'children'>>
+) {
   let el = document.querySelector(DEFAULT_SELECTOR);
   if (!el) {
     el = document.createElement('div');
@@ -20,16 +24,18 @@ export function initNPS(props: Partial<Props>) {
 }
 
 if (typeof window !== 'undefined') {
-  (window as any).NPSConfig = {
-    init: initNPS,
+  (window as any).FeedbackUs = {
+    init,
   };
 }
 
-const NPSTelkom = (props: Partial<Props>) => {
+const FeedbackUsProvider = (
+  props: Partial<Omit<Props, 'showFeedbackModal' | 'hideFeedbackModal'>>
+) => {
   return (
-    <div id="nps-widget">
+    <div id={DEFAULT_SELECTOR.replace('#', '')}>
       <App {...props} />
     </div>
   );
 };
-export { NPSTelkom, npsConfig, useNpsContext };
+export { FeedbackUsProvider, feedbackConfig, useFeedbackUs };

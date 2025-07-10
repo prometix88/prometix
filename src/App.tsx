@@ -1,15 +1,19 @@
+'use client';
+
 import React, { useEffect, useMemo, useState } from 'react';
 import FeedbackButton from './elements/FeedbackButton';
-import { npsConfig, NpsConfig } from './utils';
+import { feedbackConfig, FeedbackConfig } from './utils';
 import ModalFeedback from './elements/ModalFeedback';
 
 export interface Props {
-  config: Partial<NpsConfig>;
+  config: Partial<FeedbackConfig>;
   children: React.ReactNode;
   showFeedbackModal: () => void;
   hideFeedbackModal: () => void;
 }
-export const NpsContext = React.createContext<Omit<Props, 'children'> | undefined>(undefined);
+export const FeedbackUsContext = React.createContext<Omit<Props, 'children'> | undefined>(
+  undefined
+);
 
 function App({ children, ...props }: Partial<Props>) {
   const [state, setState] = useState({
@@ -17,7 +21,7 @@ function App({ children, ...props }: Partial<Props>) {
   });
   const values = useMemo(
     () => ({
-      config: { ...npsConfig().get(), ...(props?.config || {}) },
+      config: { ...feedbackConfig().get(), ...(props?.config || {}) },
       showFeedbackModal: () => setState({ ...state, showModal: true }),
       hideFeedbackModal: () => setState({ ...state, showModal: false }),
     }),
@@ -25,22 +29,22 @@ function App({ children, ...props }: Partial<Props>) {
   );
 
   useEffect(() => {
-    npsConfig().set(values.config);
-    (window as any).NPSConfig = {
+    feedbackConfig().set(values.config);
+    (window as any).FeedbackUs.handler = {
       showFeedbackModal: () => setState({ ...state, showModal: true }),
       hideFeedbackModal: () => setState({ ...state, showModal: false }),
     };
   }, [values.config]);
 
   return (
-    <NpsContext.Provider value={values}>
+    <FeedbackUsContext.Provider value={values}>
       {children}
       <FeedbackButton />
       <ModalFeedback
         show={state.showModal}
         onClose={() => setState({ ...state, showModal: false })}
       />
-    </NpsContext.Provider>
+    </FeedbackUsContext.Provider>
   );
 }
 

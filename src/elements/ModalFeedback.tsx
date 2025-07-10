@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
 import Modal from './Modal';
-import { npsConfig } from '../utils';
+import { feedbackConfig } from '../utils';
 import clsx from 'clsx';
 
 interface Props {
@@ -17,7 +19,7 @@ function ModalFeedback({ show, onClose }: Props) {
   });
 
   const handleSubmit = async () => {
-    const config = npsConfig().get();
+    const config = feedbackConfig().get();
     setState({ ...state, isLoading: true });
     try {
       const response = await fetch(config.endpoint, {
@@ -53,19 +55,19 @@ function ModalFeedback({ show, onClose }: Props) {
     <Modal show={show} onClose={() => onClose()}>
       <div className="w-[350px]">
         <img
-          src={npsConfig().get().illustration}
+          src={feedbackConfig().get().illustration}
           alt="Feedback"
           className="w-full rounded-xl h-auto"
           loading="lazy"
         />
         {state.isSuccess ? (
           <div className="grid place-content-center py-5 text-base text-center font-normal text-slate-800">
-            {npsConfig().get().thankyou}
+            {feedbackConfig().get().thankyou}
           </div>
         ) : (
           <div className="p-3">
             <h1 className="text-lg font-semibold text-black leading-6 my-3">
-              {npsConfig().get().title}
+              {feedbackConfig().get().title}
             </h1>
             <div className="grid gap-1 grid-cols-5">
               {Array.from({ length: 10 }).map((_, index) => (
@@ -90,11 +92,13 @@ function ModalFeedback({ show, onClose }: Props) {
                 </button>
               ))}
             </div>
-            {npsConfig().get().descriptionScore && (
-              <p className="text-xs text-slate-500 my-2">{npsConfig().get().descriptionScore}</p>
+            {feedbackConfig().get().descriptionScore && (
+              <p className="text-xs text-slate-500 my-2">
+                {feedbackConfig().get().descriptionScore}
+              </p>
             )}
             <textarea
-              className="w-full h-24 border border-gray-300 rounded-lg px-3 py-2 mt-3 focus:outline-none focus:border-blue-500 placeholder:text-sm bg-white"
+              className="w-full h-24 border border-gray-300 rounded-lg px-3 py-2 mt-3 focus:outline-none focus:border-blue-500 placeholder:text-sm bg-white text-black"
               placeholder="Masukkan komentar Anda"
               value={state.comment || ''}
               onChange={(e) => setState({ ...state, comment: e.target.value })}

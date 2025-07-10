@@ -5,17 +5,18 @@
     <meta charset="UTF-8" />
   </head>
   <body>
-    <script src="../nps-widget.min.js"></script>
+    <script src="../feedback-us.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        if (window?.NPSConfig?.init) {
-          window.NPSConfig.init({
-            selector: '#nps-widget',
-            question: 'Seberapa besar kemungkinan Anda merekomendasikan kami?',
+        if (window?.FeedbackUs?.init) {
+          window.FeedbackUs.init({
+            config: {
+              title: 'Seberapa besar kemungkinan Anda merekomendasikan kami?',
+            },
           });
-          window.NPSConfig = {};
+          // window.FeedbackUs = {};
         } else {
-          console.error('NPSConfig.init is not available');
+          console.error('FeedbackUs.init is not available');
         }
       });
     </script>

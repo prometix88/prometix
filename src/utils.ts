@@ -1,4 +1,6 @@
-export interface NpsConfig {
+import { init } from './index';
+
+export interface FeedbackConfig {
   title: string;
   thankyou: string;
   textButton: string;
@@ -13,8 +15,8 @@ export interface NpsConfig {
   hideFeedbackButton: boolean;
 }
 
-export const npsConfig = () => {
-  const rawConfig = (window as any).NPSConfig || {};
+export const feedbackConfig = () => {
+  const rawConfig = (window as any).FeedbackUs || {};
   const config = {
     title:
       rawConfig?.title ?? 'Seberapa besar kemungkinan Anda merekomendasikan situs ini ke teman?',
@@ -35,8 +37,8 @@ export const npsConfig = () => {
 
   return {
     get: () => config,
-    set: (newConfig: Partial<NpsConfig>) => {
-      (window as any).NPSConfig = { ...config, ...newConfig };
+    set: (newConfig: Partial<FeedbackConfig>) => {
+      (window as any).FeedbackUs = { ...config, ...newConfig, init };
     },
   };
 };

@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { DEFAULT_SELECTOR } from '..';
 
 type ModalProps = {
   show: boolean;
@@ -9,19 +12,13 @@ type ModalProps = {
 
 export default function Modal({ show, onClose, children }: ModalProps) {
   const [isBrowser, setIsBrowser] = useState(false);
-  const [isVisible, setIsVisible] = useState(show);
 
   useEffect(() => {
     setIsBrowser(true);
   }, []);
 
-  useEffect(() => {
-    if (show) setIsVisible(true);
-  }, [show]);
-
   const handleClose = () => {
-    setIsVisible(false);
-    setTimeout(onClose, 10); // delay sesuai animasi
+    onClose();
   };
 
   const modalContent = (
@@ -47,8 +44,8 @@ export default function Modal({ show, onClose, children }: ModalProps) {
     </div>
   );
 
-  if (!isVisible && !show) return null;
+  if (!show) return null;
   if (!isBrowser) return null;
 
-  return createPortal(modalContent, document.getElementById('nps-widget')!);
+  return createPortal(modalContent, document.getElementById(DEFAULT_SELECTOR.replace('#', ''))!);
 }

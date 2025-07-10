@@ -11,6 +11,8 @@ import autoprefixer from 'autoprefixer';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import prefixSelector from 'postcss-prefix-selector';
 
+const DEFAULT_SELECTOR = '#feedback-us'; //must same with DEFAULT_SELECTOR on ./src/index.tsx
+
 export default [
   {
     input: ['./src/index.tsx'],
@@ -39,7 +41,7 @@ export default [
           tailwind(),
           autoprefixer(),
           prefixSelector({
-            prefix: '#nps-widget', // 👈 semua selector akan jadi #nps-widget .bg-blue-500, dll
+            prefix: DEFAULT_SELECTOR, //'#feedback-us', // 👈 semua selector akan jadi #feedback-us .bg-blue-500, dll
             transform(_prefix, selector, prefixedSelector) {
               if (selector.startsWith(':root')) return selector; // biar tidak rusak
               return prefixedSelector;
@@ -69,7 +71,7 @@ export default [
     input: ['./src/index.tsx'],
     output: [
       {
-        file: 'nps-widget.min.js',
+        file: 'feedback-us.min.js',
         format: 'iife', // bundling untuk browser biasa
         // name: 'NPSModule', // akan tersedia di window.NPSModule
         globals: {
@@ -91,7 +93,7 @@ export default [
           tailwind(),
           autoprefixer(),
           prefixSelector({
-            prefix: '#nps-widget', // 👈 semua selector akan jadi #nps-widget .bg-blue-500, dll
+            prefix: DEFAULT_SELECTOR, // 👈 semua selector akan jadi #feedback-us .bg-blue-500, dll
             transform(_prefix, selector, prefixedSelector) {
               if (selector.startsWith(':root')) return selector; // biar tidak rusak
               return prefixedSelector;

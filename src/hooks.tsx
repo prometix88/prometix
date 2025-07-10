@@ -1,10 +1,10 @@
-import { NpsContext } from './App';
+import { FeedbackUsContext } from './App';
 import { useContext } from 'react';
 
-export const useNpsContext = () => {
-  const context = useContext(NpsContext);
+export const useFeedbackUs = () => {
+  const context = useContext(FeedbackUsContext);
   if (context === undefined) {
-    throw new Error('useNpsContext must be within ModalAlertProvider');
+    throw new Error('useFeedbackUs must be within FeedbackUsProvider');
   }
   return context;
 };
