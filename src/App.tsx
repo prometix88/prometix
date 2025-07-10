@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import FeedbackButton from './elements/FeedbackButton';
 import { feedbackConfig, FeedbackConfig } from './utils';
 import ModalFeedback from './elements/ModalFeedback';
+import { DEFAULT_SELECTOR } from '.';
 
 export interface Props {
   config: Partial<FeedbackConfig>;
@@ -39,11 +40,13 @@ function App({ children, ...props }: Partial<Props>) {
   return (
     <FeedbackUsContext.Provider value={values}>
       {children}
-      <FeedbackButton />
-      <ModalFeedback
-        show={state.showModal}
-        onClose={() => setState({ ...state, showModal: false })}
-      />
+      <div id={DEFAULT_SELECTOR.replace('#', '')}>
+        <FeedbackButton />
+        <ModalFeedback
+          show={state.showModal}
+          onClose={() => setState({ ...state, showModal: false })}
+        />
+      </div>
     </FeedbackUsContext.Provider>
   );
 }

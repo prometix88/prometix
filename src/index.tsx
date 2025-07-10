@@ -12,10 +12,10 @@ export const DEFAULT_SELECTOR = '#feedback-us';
 export function init(
   props: Partial<Omit<Props, 'showFeedbackModal' | 'hideFeedbackModal' | 'children'>>
 ) {
-  let el = document.querySelector(DEFAULT_SELECTOR);
+  let el = document.querySelector(`${DEFAULT_SELECTOR}__container`);
   if (!el) {
     el = document.createElement('div');
-    el.id = DEFAULT_SELECTOR.replace('#', '');
+    el.id = `${DEFAULT_SELECTOR}__container`.replace('#', '');
     document.body.appendChild(el);
   }
 
@@ -33,7 +33,7 @@ const FeedbackUsProvider = (
   props: Partial<Omit<Props, 'showFeedbackModal' | 'hideFeedbackModal'>>
 ) => {
   return (
-    <div id={DEFAULT_SELECTOR.replace('#', '')}>
+    <div id={`${DEFAULT_SELECTOR.replace('#', '')}__container`}>
       <App {...props} />
     </div>
   );
