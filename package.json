@@ -13,7 +13,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "prepare": "husky"
   },
   "files": [
     "index.d.ts",
@@ -52,6 +53,9 @@
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@release-it/conventional-changelog": "^10.0.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-node-resolve": "^16.0.1",
@@ -62,8 +66,10 @@
     "@vitejs/plugin-react": "^4.6.0",
     "autoprefixer": "^10.4.21",
     "clsx": "^2.1.1",
+    "husky": "^9.1.7",
     "postcss": "^8.5.6",
     "postcss-prefix-selector": "^2.1.1",
+    "release-it": "^19.0.3",
     "rollup": "^4.44.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
