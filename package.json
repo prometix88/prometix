@@ -8,6 +8,9 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@solehudin5699"
+  },
   "scripts": {
     "dev": "vite",
     "build": "rollup -c"
