@@ -11,7 +11,7 @@ import autoprefixer from 'autoprefixer';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import prefixSelector from 'postcss-prefix-selector';
 
-const DEFAULT_SELECTOR = '#feedback-us'; //must same with DEFAULT_SELECTOR on ./src/index.tsx
+const DEFAULT_SELECTOR = '#prometix'; //must same with DEFAULT_SELECTOR on ./src/index.tsx
 
 export default [
   {
@@ -41,7 +41,7 @@ export default [
           tailwind(),
           autoprefixer(),
           prefixSelector({
-            prefix: DEFAULT_SELECTOR, //'#feedback-us', // 👈 semua selector akan jadi #feedback-us .bg-blue-500, dll
+            prefix: DEFAULT_SELECTOR, //'#prometix', // 👈 semua selector akan jadi #prometix .bg-blue-500, dll
             transform(_prefix, selector, prefixedSelector) {
               if (selector.startsWith(':root')) return selector; // biar tidak rusak
               return prefixedSelector;
@@ -71,9 +71,9 @@ export default [
     input: ['./src/index.tsx'],
     output: [
       {
-        file: 'feedback-us.min.js',
+        file: 'prometix.min.js',
         format: 'iife', // bundling untuk browser biasa
-        // name: 'NPSModule', // akan tersedia di window.NPSModule
+        // name: 'Prometix', // akan tersedia di window.Prometix
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
@@ -93,7 +93,7 @@ export default [
           tailwind(),
           autoprefixer(),
           prefixSelector({
-            prefix: DEFAULT_SELECTOR, // 👈 semua selector akan jadi #feedback-us .bg-blue-500, dll
+            prefix: DEFAULT_SELECTOR, // 👈 semua selector akan jadi #prometix .bg-blue-500, dll
             transform(_prefix, selector, prefixedSelector) {
               if (selector.startsWith(':root')) return selector; // biar tidak rusak
               return prefixedSelector;

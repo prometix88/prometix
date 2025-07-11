@@ -23,8 +23,8 @@ export interface FeedbackConfig {
   hideFeedbackButton: boolean;
 }
 
-export const feedbackConfig = () => {
-  const rawConfig = (window as any).FeedbackUs || {};
+export const prometixConfig = () => {
+  const rawConfig = (window as any).Prometix || {};
   const config = {
     title:
       rawConfig?.title ?? 'Seberapa besar kemungkinan Anda merekomendasikan situs ini ke teman?',
@@ -56,7 +56,7 @@ export const feedbackConfig = () => {
   return {
     get: () => config,
     set: (newConfig: Partial<FeedbackConfig>) => {
-      (window as any).FeedbackUs = { ...config, ...newConfig, init };
+      (window as any).Prometix = { ...config, ...newConfig, init };
     },
   };
 };

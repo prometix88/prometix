@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { feedbackConfig } from '../utils';
+import { prometixConfig } from '../utils';
 import clsx from 'clsx';
 import ModalFeedback from './ModalFeedback';
-import { useFeedbackUs } from '../hooks';
+import { usePrometix } from '../hooks';
 import ModalSubmitted from './ModalSubmitted';
 
 function FeedbackButton() {
@@ -13,10 +13,10 @@ function FeedbackButton() {
     isSubmitted: false,
     isLoading: false,
   });
-  const { config } = useFeedbackUs();
+  const { config } = usePrometix();
 
   const handleShowModal = async () => {
-    const config = feedbackConfig().get();
+    const config = prometixConfig().get();
     setState({ ...state, isLoading: true });
     try {
       const response = await fetch(config?.api?.check?.url, {
@@ -72,7 +72,7 @@ function FeedbackButton() {
             strokeLinejoin="round"
           />
         </svg>
-        {state.isLoading ? 'Loading...' : feedbackConfig().get().textButton}
+        {state.isLoading ? 'Loading...' : prometixConfig().get().textButton}
       </button>
 
       <ModalFeedback

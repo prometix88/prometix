@@ -1,6 +1,6 @@
 {
-  "name": "@solehudin5699/feedback-us",
-  "version": "0.1.2",
+  "name": "prometix",
+  "version": "0.0.0",
   "main": "index.js",
   "type": "module",
   "module": "index.esm.js",
@@ -8,9 +8,6 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@solehudin5699"
-  },
   "scripts": {
     "dev": "vite",
     "build": "rollup -c",
@@ -27,23 +24,24 @@
     "App.d.ts",
     "utils.d.ts",
     "hooks.d.ts",
-    "feedback-us.min.js"
+    "prometix.min.js"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/solehudin5699/nps-widget.git"
+    "url": "git+https://github.com/solehudin5699/prometix.git"
   },
   "keywords": [
     "react",
     "nps",
-    "widget"
+    "widget",
+    "prometix"
   ],
   "author": "Solehudin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/solehudin5699/nps-widget/issues"
+    "url": "https://github.com/solehudin5699/prometix/issues"
   },
-  "homepage": "git+https://github.com/solehudin5699/nps-widget#readme",
+  "homepage": "git+https://github.com/solehudin5699/prometix#readme",
   "description": "",
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",

@@ -4,7 +4,7 @@ dist
 index.d.ts
 index.esm.js
 index.js
-feedback-us.min.js
+prometix.min.js
 .vscode
 utils.d.ts
 App.d.ts

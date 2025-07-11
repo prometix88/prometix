@@ -7,7 +7,7 @@
     "requireUpstream": true
   },
   "npm": {
-    "publish": false
+    "publish": true
   },
   "github": {
     "release": true

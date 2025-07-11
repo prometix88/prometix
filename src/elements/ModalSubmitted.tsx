@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Modal from './Modal';
-import { feedbackConfig } from '../utils';
+import { prometixConfig } from '../utils';
 
 interface Props {
   show: boolean;
@@ -14,13 +14,13 @@ function ModalSubmitted({ show, onClose }: Props) {
     <Modal show={show} onClose={() => onClose()}>
       <div className="w-[350px]">
         <img
-          src={feedbackConfig().get().illustration}
+          src={prometixConfig().get().illustration}
           alt="Feedback"
           className="w-full rounded-xl h-auto"
           loading="lazy"
         />
         <div className="grid place-content-center py-5 text-base text-center font-normal text-slate-800">
-          {feedbackConfig().get().textSubmitted}
+          {prometixConfig().get().textSubmitted}
         </div>
       </div>
     </Modal>

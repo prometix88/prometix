@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Preview NPS</title>
+    <title>Preview Prometix</title>
     <meta charset="UTF-8" />
   </head>
   <body>
-    <script src="../feedback-us.min.js"></script>
+    <script src="../prometix.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        if (window?.FeedbackUs?.init) {
-          window.FeedbackUs.init({
+        if (window?.Prometix?.init) {
+          window.Prometix.init({
             config: {
               title: 'Seberapa besar kemungkinan Anda merekomendasikan kami?',
             },
           });
-          // window.FeedbackUs = {};
+          // window.Prometix = {};
         } else {
-          console.error('FeedbackUs.init is not available');
+          console.error('Prometix.init is not available');
         }
       });
     </script>

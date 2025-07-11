@@ -4,10 +4,10 @@ import './style.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App, { type Props } from './App';
-import { feedbackConfig } from './utils';
-import { useFeedbackUs } from './hooks';
+import { prometixConfig } from './utils';
+import { usePrometix } from './hooks';
 
-export const DEFAULT_SELECTOR = '#feedback-us';
+export const DEFAULT_SELECTOR = '#prometix';
 
 export function init(
   props: Partial<Omit<Props, 'showFeedbackModal' | 'hideFeedbackModal' | 'children'>>
@@ -24,12 +24,12 @@ export function init(
 }
 
 if (typeof window !== 'undefined') {
-  (window as any).FeedbackUs = {
+  (window as any).Prometix = {
     init,
   };
 }
 
-const FeedbackUsProvider = (
+const PrometixProvider = (
   props: Partial<Omit<Props, 'showFeedbackModal' | 'hideFeedbackModal'>>
 ) => {
   return (
@@ -38,4 +38,4 @@ const FeedbackUsProvider = (
     </div>
   );
 };
-export { FeedbackUsProvider, feedbackConfig, useFeedbackUs };
+export { PrometixProvider, prometixConfig, usePrometix };

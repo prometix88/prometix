@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import FeedbackButton from './elements/FeedbackButton';
-import { feedbackConfig, FeedbackConfig } from './utils';
+import { prometixConfig, FeedbackConfig } from './utils';
 import ModalFeedback from './elements/ModalFeedback';
 import { DEFAULT_SELECTOR } from '.';
 
@@ -27,7 +27,7 @@ function App({ children, ...props }: Partial<Props>) {
   const [dynamicPayload, setDynamicPayload] = useState<Payload>();
 
   const handleShowModal = async (payload: Payload) => {
-    const config = feedbackConfig().get();
+    const config = prometixConfig().get();
     try {
       const response = await fetch(config?.api?.check?.url, {
         method: config?.api?.check?.method,
@@ -51,7 +51,7 @@ function App({ children, ...props }: Partial<Props>) {
   };
   const values = useMemo(
     () => ({
-      config: { ...feedbackConfig().get(), ...(props?.config || {}) },
+      config: { ...prometixConfig().get(), ...(props?.config || {}) },
       showFeedbackModal: handleShowModal,
       hideFeedbackModal: () => setState({ ...state, showModal: false }),
     }),
@@ -59,8 +59,8 @@ function App({ children, ...props }: Partial<Props>) {
   );
 
   useEffect(() => {
-    feedbackConfig().set(values.config);
-    (window as any).FeedbackUs.handler = {
+    prometixConfig().set(values.config);
+    (window as any).Prometix.handler = {
       showFeedbackModal: handleShowModal,
       hideFeedbackModal: () => setState({ ...state, showModal: false }),
     };
