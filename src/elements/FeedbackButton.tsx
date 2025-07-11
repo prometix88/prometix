@@ -5,12 +5,42 @@ import { feedbackConfig } from '../utils';
 import clsx from 'clsx';
 import ModalFeedback from './ModalFeedback';
 import { useFeedbackUs } from '../hooks';
+import ModalSubmitted from './ModalSubmitted';
 
 function FeedbackButton() {
   const [state, setState] = useState({
     showModal: false,
+    isSubmitted: false,
+    isLoading: false,
   });
   const { config } = useFeedbackUs();
+
+  const handleShowModal = async () => {
+    const config = feedbackConfig().get();
+    setState({ ...state, isLoading: true });
+    try {
+      const response = await fetch(config?.api?.check?.url, {
+        method: config?.api?.check?.method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          survey_id: config?.surveyId,
+          customer_id: config?.customerId,
+        }),
+      });
+      const data = await response.json();
+      if (data.status === false) {
+        return setState({ ...state, showModal: true });
+      } else if (data.status === true) {
+        return setState({ ...state, isSubmitted: true });
+      }
+    } catch (error) {
+      return error;
+    } finally {
+      setState({ ...state, isLoading: false });
+    }
+  };
 
   if (config.hideFeedbackButton) return null;
   return (
@@ -21,7 +51,7 @@ function FeedbackButton() {
           writingMode: 'vertical-rl',
           textOrientation: 'mixed',
         }}
-        onClick={() => setState({ ...state, showModal: true })}
+        onClick={() => handleShowModal()}
       >
         <svg
           className={clsx('transition-all duration-300', {
@@ -42,11 +72,16 @@ function FeedbackButton() {
             strokeLinejoin="round"
           />
         </svg>
-        {feedbackConfig().get().textButton}
+        {state.isLoading ? 'Loading...' : feedbackConfig().get().textButton}
       </button>
+
       <ModalFeedback
         show={state.showModal}
         onClose={() => setState({ ...state, showModal: false })}
+      />
+      <ModalSubmitted
+        show={state.isSubmitted}
+        onClose={() => setState({ ...state, isSubmitted: false })}
       />
     </>
   );

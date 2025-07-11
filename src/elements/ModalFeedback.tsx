@@ -8,9 +8,13 @@ import clsx from 'clsx';
 interface Props {
   show: boolean;
   onClose: () => void;
+  payload?: {
+    surveyId: string;
+    customerId: string;
+  };
 }
 
-function ModalFeedback({ show, onClose }: Props) {
+function ModalFeedback({ show, onClose, payload }: Props) {
   const [state, setState] = useState({
     selectedRating: null as null | number,
     comment: null as null | string,
@@ -22,12 +26,12 @@ function ModalFeedback({ show, onClose }: Props) {
     const config = feedbackConfig().get();
     setState({ ...state, isLoading: true });
     try {
-      const response = await fetch(config.endpoint, {
+      const response = await fetch(config?.api?.submit?.url, {
         headers: { 'Content-Type': 'application/json' },
-        method: config.endpointMethod,
+        method: config?.api?.submit?.url,
         body: JSON.stringify({
-          customer_id: config.customerId,
-          survey_id: config.surveyId,
+          customer_id: payload?.customerId || config.customerId,
+          survey_id: payload?.surveyId || config.surveyId,
           score: state.selectedRating,
           comment: state.comment || '',
           response_date: new Date().toISOString(),
