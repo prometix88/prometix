@@ -19,8 +19,8 @@ function ModalFeedback({ show, onClose, payload }: Props) {
     selectedRating: null as null | number,
     comment: null as null | string,
     isLoading: false,
-    isSuccess: false,
   });
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async () => {
     const config = prometixConfig().get();
@@ -28,7 +28,7 @@ function ModalFeedback({ show, onClose, payload }: Props) {
     try {
       const response = await fetch(config?.api?.submit?.url, {
         headers: { 'Content-Type': 'application/json' },
-        method: config?.api?.submit?.url,
+        method: config?.api?.submit?.method,
         body: JSON.stringify({
           customer_id: payload?.customerId || config.customerId,
           survey_id: payload?.surveyId || config.surveyId,
@@ -43,9 +43,8 @@ function ModalFeedback({ show, onClose, payload }: Props) {
           ...state,
           selectedRating: null,
           comment: null,
-          isSuccess: true,
         });
-        onClose();
+        setIsSuccess(true);
       } else {
         alert('Terjadi kesalahan saat mengirimkan feedback.');
       }
@@ -64,7 +63,7 @@ function ModalFeedback({ show, onClose, payload }: Props) {
           className="w-full rounded-xl h-auto"
           loading="lazy"
         />
-        {state.isSuccess ? (
+        {isSuccess ? (
           <div className="grid place-content-center py-5 text-base text-center font-normal text-slate-800">
             {prometixConfig().get().thankyou}
           </div>

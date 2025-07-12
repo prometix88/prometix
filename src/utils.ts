@@ -1,5 +1,3 @@
-import { init } from './index';
-
 export interface FeedbackConfig {
   title: string;
   thankyou: string;
@@ -48,15 +46,31 @@ export const prometixConfig = () => {
       },
     },
     // OTHERS
-    customerId: rawConfig?.customerId ?? '',
+    customerId: rawConfig?.customerId ?? getOrCreateAnonymousId(),
     surveyId: rawConfig?.surveyId ?? '',
     hideFeedbackButton: rawConfig?.hideFeedbackButton ?? false,
   };
 
   return {
-    get: () => config,
+    get: () => ({ ...rawConfig, ...config } as FeedbackConfig),
     set: (newConfig: Partial<FeedbackConfig>) => {
-      (window as any).Prometix = { ...config, ...newConfig, init };
+      (window as any).Prometix = { ...rawConfig, ...config, ...newConfig };
     },
   };
 };
+
+export function getOrCreateAnonymousId(): string {
+  const rawConfig = (window as any).Prometix || {};
+  const KEY = `prometix-anonymous-${rawConfig.surveyId}`;
+  const cached = localStorage.getItem(KEY);
+  if (cached) {
+    const { id, timestamp } = JSON.parse(cached);
+    const age = Date.now() - timestamp;
+    const oneMonth = 1000 * 60 * 60 * 24 * 30;
+    if (age < oneMonth) return id;
+  }
+
+  const id = crypto.randomUUID();
+  localStorage.setItem(KEY, JSON.stringify({ id, timestamp: Date.now() }));
+  return id;
+}

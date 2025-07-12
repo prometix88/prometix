@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { prometixConfig } from '../utils';
 import clsx from 'clsx';
-import ModalFeedback from './ModalFeedback';
 import { usePrometix } from '../hooks';
 import ModalSubmitted from './ModalSubmitted';
 
@@ -13,32 +12,25 @@ function FeedbackButton() {
     isSubmitted: false,
     isLoading: false,
   });
-  const { config } = usePrometix();
+  const { config, showFeedbackModal } = usePrometix();
 
-  const handleShowModal = async () => {
+  const handleOpenModal = async () => {
     const config = prometixConfig().get();
     setState({ ...state, isLoading: true });
     try {
-      const response = await fetch(config?.api?.check?.url, {
-        method: config?.api?.check?.method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          survey_id: config?.surveyId,
-          customer_id: config?.customerId,
-        }),
+      const checkSurvey = await showFeedbackModal({
+        customerId: config?.customerId,
+        surveyId: config?.surveyId,
       });
-      const data = await response.json();
-      if (data.status === false) {
-        return setState({ ...state, showModal: true });
-      } else if (data.status === true) {
-        return setState({ ...state, isSubmitted: true });
+      // Check if the survey has been submitted
+      if (checkSurvey.submitted === true) {
+        setState({ ...state, isSubmitted: true, isLoading: false });
+        return;
       }
-    } catch (error) {
-      return error;
-    } finally {
       setState({ ...state, isLoading: false });
+    } catch (error) {
+      setState({ ...state, isLoading: false });
+      return error;
     }
   };
 
@@ -51,7 +43,7 @@ function FeedbackButton() {
           writingMode: 'vertical-rl',
           textOrientation: 'mixed',
         }}
-        onClick={() => handleShowModal()}
+        onClick={() => handleOpenModal()}
       >
         <svg
           className={clsx('transition-all duration-300', {
@@ -74,11 +66,6 @@ function FeedbackButton() {
         </svg>
         {state.isLoading ? 'Loading...' : prometixConfig().get().textButton}
       </button>
-
-      <ModalFeedback
-        show={state.showModal}
-        onClose={() => setState({ ...state, showModal: false })}
-      />
       <ModalSubmitted
         show={state.isSubmitted}
         onClose={() => setState({ ...state, isSubmitted: false })}

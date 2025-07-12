@@ -5,6 +5,7 @@ import FeedbackButton from './elements/FeedbackButton';
 import { prometixConfig, FeedbackConfig } from './utils';
 import ModalFeedback from './elements/ModalFeedback';
 import { DEFAULT_SELECTOR } from '.';
+import { createPortal } from 'react-dom';
 
 interface Payload {
   surveyId: string;
@@ -13,14 +14,22 @@ interface Payload {
 export interface Props {
   config: Partial<FeedbackConfig>;
   children: React.ReactNode;
-  showFeedbackModal: (payload: Payload) => void;
+  showFeedbackModal: (payload: Payload) => Promise<
+    | {
+        submitted: boolean;
+      }
+    | {
+        submitted: null;
+        error: any;
+      }
+  >;
   hideFeedbackModal: () => void;
 }
 export const FeedbackUsContext = React.createContext<Omit<Props, 'children'> | undefined>(
   undefined
 );
 
-function App({ children, ...props }: Partial<Props>) {
+function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }) {
   const [state, setState] = useState({
     showModal: false,
   });
@@ -42,11 +51,25 @@ function App({ children, ...props }: Partial<Props>) {
       const data = await response.json();
       if (data.status === false) {
         setDynamicPayload(payload);
-        return setState({ ...state, showModal: true });
+        setState({ ...state, showModal: true });
+        return Promise.resolve({
+          submitted: false,
+        });
+      } else if (data.status === true) {
+        return Promise.resolve({
+          submitted: true,
+        });
       }
-      return;
-    } catch (error) {
-      return error;
+      console.log(data);
+      return Promise.resolve({
+        submitted: null,
+        error: data?.error || 'Unknown error',
+      });
+    } catch (error: any) {
+      return Promise.resolve({
+        submitted: null,
+        error: error?.message || 'Unknown error',
+      });
     }
   };
   const values = useMemo(
@@ -69,14 +92,28 @@ function App({ children, ...props }: Partial<Props>) {
   return (
     <FeedbackUsContext.Provider value={values}>
       {children}
-      <div id={DEFAULT_SELECTOR.replace('#', '')}>
-        <FeedbackButton />
-        <ModalFeedback
-          show={state.showModal}
-          onClose={() => setState({ ...state, showModal: false })}
-          payload={dynamicPayload}
-        />
-      </div>
+      {embed ? (
+        <>
+          <FeedbackButton />
+          <ModalFeedback
+            show={state.showModal}
+            onClose={() => setState({ ...state, showModal: false })}
+            payload={dynamicPayload}
+          />
+        </>
+      ) : (
+        createPortal(
+          <div id={DEFAULT_SELECTOR.replace('#', '')}>
+            <FeedbackButton />
+            <ModalFeedback
+              show={state.showModal}
+              onClose={() => setState({ ...state, showModal: false })}
+              payload={dynamicPayload}
+            />
+          </div>,
+          document.body
+        )
+      )}
     </FeedbackUsContext.Provider>
   );
 }

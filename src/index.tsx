@@ -9,18 +9,16 @@ import { usePrometix } from './hooks';
 
 export const DEFAULT_SELECTOR = '#prometix';
 
-export function init(
-  props: Partial<Omit<Props, 'showFeedbackModal' | 'hideFeedbackModal' | 'children'>>
-) {
-  let el = document.querySelector(`${DEFAULT_SELECTOR}__container`);
+function init(props: Partial<Omit<Props, 'showFeedbackModal' | 'hideFeedbackModal' | 'children'>>) {
+  let el = document.querySelector(`${DEFAULT_SELECTOR}`);
   if (!el) {
     el = document.createElement('div');
-    el.id = `${DEFAULT_SELECTOR}__container`.replace('#', '');
+    el.id = `${DEFAULT_SELECTOR}`.replace('#', '');
     document.body.appendChild(el);
   }
 
   const root = ReactDOM.createRoot(el);
-  root.render(<App {...props} />);
+  root.render(<App {...props} embed />);
 }
 
 if (typeof window !== 'undefined') {
@@ -33,9 +31,9 @@ const PrometixProvider = (
   props: Partial<Omit<Props, 'showFeedbackModal' | 'hideFeedbackModal'>>
 ) => {
   return (
-    <div id={`${DEFAULT_SELECTOR.replace('#', '')}__container`}>
-      <App {...props} />
-    </div>
+    <>
+      <App {...props} embed={false} />
+    </>
   );
 };
 export { PrometixProvider, prometixConfig, usePrometix };
