@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.2](https://github.com/prometix88/prometix/compare/v1.1.1...v1.1.2) (2025-07-14)
+
+### Bug Fixes
+
+* update image & logic overide modal options ([d512dcc](https://github.com/prometix88/prometix/commit/d512dcc2af106df36f1d4afa2d1fdd469def23e9))
+
 ## [1.1.1](https://github.com/prometix88/prometix/compare/v1.1.0...v1.1.1) (2025-07-14)
 
 ## [1.1.0](https://github.com/solehudin5699/prometix/compare/v1.0.0...v1.1.0) (2025-07-14)
