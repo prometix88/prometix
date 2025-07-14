@@ -29,7 +29,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/solehudin5699/prometix.git"
+    "url": "git+https://github.com/prometix88/prometix.git"
   },
   "keywords": [
     "react",
@@ -40,9 +40,9 @@
   "author": "Solehudin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/solehudin5699/prometix/issues"
+    "url": "https://github.com/prometix88/prometix/issues"
   },
-  "homepage": "git+https://github.com/solehudin5699/prometix#readme",
+  "homepage": "git+https://github.com/prometix88/prometix#readme",
   "description": "",
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
