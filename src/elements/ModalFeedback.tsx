@@ -12,9 +12,15 @@ interface Props {
     surveyId: string;
     customerId: string;
   };
+  optionsModal?: {
+    title?: string;
+    descriptionScore?: string;
+    thankyou?: string;
+    illustration?: string;
+  };
 }
 
-function ModalFeedback({ show, onClose, payload }: Props) {
+function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
   const [state, setState] = useState({
     selectedRating: null as null | number,
     comment: null as null | string,
@@ -58,19 +64,19 @@ function ModalFeedback({ show, onClose, payload }: Props) {
     <Modal show={show} onClose={() => onClose()}>
       <div className="w-[350px]">
         <img
-          src={prometixConfig().get().illustration}
+          src={optionsModal?.illustration || prometixConfig().get().illustration}
           alt="Feedback"
           className="w-full rounded-xl h-auto"
           loading="lazy"
         />
         {isSuccess ? (
           <div className="grid place-content-center py-5 text-base text-center font-normal text-slate-800">
-            {prometixConfig().get().thankyou}
+            {optionsModal?.thankyou || prometixConfig().get().thankyou}
           </div>
         ) : (
           <div className="p-3">
             <h1 className="text-lg font-semibold text-black leading-6 my-3">
-              {prometixConfig().get().title}
+              {optionsModal?.title || prometixConfig().get().title}
             </h1>
             <div className="grid gap-1 grid-cols-5">
               {Array.from({ length: 10 }).map((_, index) => (
@@ -95,9 +101,9 @@ function ModalFeedback({ show, onClose, payload }: Props) {
                 </button>
               ))}
             </div>
-            {prometixConfig().get().descriptionScore && (
+            {(optionsModal?.descriptionScore || prometixConfig().get().descriptionScore) && (
               <p className="text-xs text-slate-500 my-2">
-                {prometixConfig().get().descriptionScore}
+                {optionsModal?.descriptionScore || prometixConfig().get().descriptionScore}
               </p>
             )}
             <textarea

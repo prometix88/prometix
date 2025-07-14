@@ -11,10 +11,19 @@ interface Payload {
   surveyId: string;
   customerId: string;
 }
+interface OptionModal {
+  title?: string;
+  descriptionScore?: string;
+  thankyou?: string;
+  illustration?: string;
+}
 export interface Props {
   config: Partial<FeedbackConfig>;
   children: React.ReactNode;
-  showFeedbackModal: (payload: Payload) => Promise<
+  showFeedbackModal: (
+    payload: Payload,
+    options?: OptionModal
+  ) => Promise<
     | {
         submitted: boolean;
       }
@@ -34,9 +43,11 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
     showModal: false,
   });
   const [dynamicPayload, setDynamicPayload] = useState<Payload>();
+  const [optionsModal, setOptionsModal] = useState<OptionModal>();
 
-  const handleShowModal = async (payload: Payload) => {
+  const handleShowModal = async (payload: Payload, options?: OptionModal) => {
     const config = prometixConfig().get();
+    setOptionsModal(options);
     try {
       const response = await fetch(config?.api?.check?.url, {
         method: config?.api?.check?.method,
@@ -99,6 +110,7 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
             show={state.showModal}
             onClose={() => setState({ ...state, showModal: false })}
             payload={dynamicPayload}
+            optionsModal={optionsModal}
           />
         </>
       ) : (
@@ -109,6 +121,7 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
               show={state.showModal}
               onClose={() => setState({ ...state, showModal: false })}
               payload={dynamicPayload}
+              optionsModal={optionsModal}
             />
           </div>,
           document.body
