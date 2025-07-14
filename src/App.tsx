@@ -65,10 +65,10 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
         const content = await getContentSurvey(payload?.surveyId);
         setOptionsModal({
           descriptionScore: options?.descriptionScore,
-          title: content?.data?.question || options?.title,
-          thankyou: content?.data?.thank_you_message || options?.thankyou,
+          title: options?.title || content?.data?.question,
+          thankyou: options?.thankyou || content?.data?.thank_you_message,
           illustration: options?.illustration,
-          followupQuestion: content?.data?.follow_up_question || options?.followupQuestion,
+          followupQuestion: options?.followupQuestion || content?.data?.follow_up_question,
         });
         setDynamicPayload(payload);
         setState({ ...state, showModal: true });
