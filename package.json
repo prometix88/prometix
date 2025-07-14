@@ -24,7 +24,8 @@
     "App.d.ts",
     "utils.d.ts",
     "hooks.d.ts",
-    "prometix.min.js"
+    "prometix.min.js",
+    "services.d.ts"
   ],
   "repository": {
     "type": "git",

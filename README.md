@@ -25,8 +25,8 @@ export default function App() {
   return (
     <PrometixProvider
       config={{
-        surveyId: 'your survey id', // required, can be overridden later if hideFeedbackButton is false
-        customerId: '', // optional, can be overridden later required if hideFeedbackButton is false
+        surveyId: 'your survey id', // can be overridden later, required if hideFeedbackButton is false
+        customerId: '', //  can be overridden later, required if hideFeedbackButton is false
       }}
     >
       {/* ...your app... */}
@@ -46,11 +46,10 @@ Tambahkan script berikut ke HTML Anda:
     if (window?.Prometix?.init) {
       window.Prometix.init({
         config: {
-          surveyId: 'your survey id', // required, can be overridden later if hideFeedbackButton is false
-          customerId: '', // optional, can be overridden later required if hideFeedbackButton is false
+          surveyId: 'your survey id', // can be overridden later, required if hideFeedbackButton is false
+          customerId: '', //  can be overridden later, required if hideFeedbackButton is false
         },
       });
-      // window.Prometix = {};
     } else {
       console.error('Prometix.init is not available');
     }
@@ -100,6 +99,7 @@ Prometix menyediakan tiga cara utama untuk diintegrasikan:
     textButton: string;
     descriptionScore: string;
     illustration: string;
+    followupQuestion: string;
 
     api: {
       submit: {
@@ -110,6 +110,10 @@ Prometix menyediakan tiga cara utama untuk diintegrasikan:
         method: string; // contoh: 'GET'
         url: string;    // endpoint untuk memeriksa apakah feedback sudah dikirim
       };
+      surveyContent: {
+        method: string; // contoh: 'POST'
+        url: string;    // endpoint untuk mengambil isi survei
+      }
     };
 
     customerId: string;           // ID unik untuk user (login atau anonim)
@@ -127,7 +131,8 @@ Prometix menyediakan tiga cara utama untuk diintegrasikan:
     textSubmitted: 'Feedback berhasil dikirim.',
     textButton: 'Kirim',
     descriptionScore: '0 = Tidak sama sekali, 10 = Sangat mungkin',
-    illustration: '/images/ilustrasi-feedback.svg',
+    illustration: 'https://domain.com/images/ilustrasi-feedback.svg',
+    followupQuestion:'Apa alasan Anda?'
 
     api: {
       submit: {
@@ -135,8 +140,12 @@ Prometix menyediakan tiga cara utama untuk diintegrasikan:
         url: 'https://api.kamu.com/feedback/kirim',
       },
       check: {
-        method: 'GET',
+        method: 'POST',
         url: 'https://api.kamu.com/feedback/cek',
+      },
+      surveyContent: {
+        method: 'POST',
+        url: 'https://api.kamu.com/feedback/content',
       },
     },
 
@@ -167,12 +176,17 @@ window.Prometix berisi:
   "textSubmitted": "", // string
   "textButton": "", // string
   "illustration": "", // string
+  "followupQuestion": "", // string
   "api": {
     "submit": {
       "url": "", // string
       "method": "" // string
     },
     "check": {
+      "url": "", // string
+      "method": "" // string
+    },
+    "surveyContent": {
       "url": "", // string
       "method": "" // string
     }

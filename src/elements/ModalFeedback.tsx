@@ -17,6 +17,7 @@ interface Props {
     descriptionScore?: string;
     thankyou?: string;
     illustration?: string;
+    followupQuestion?: string;
   };
 }
 
@@ -106,12 +107,20 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
                 {optionsModal?.descriptionScore || prometixConfig().get().descriptionScore}
               </p>
             )}
-            <textarea
-              className="w-full h-24 border border-gray-300 rounded-lg px-3 py-2 mt-3 focus:outline-none focus:border-blue-500 placeholder:text-sm bg-white text-black"
-              placeholder="Masukkan komentar Anda"
-              value={state.comment || ''}
-              onChange={(e) => setState({ ...state, comment: e.target.value })}
-            />
+            <div className="mt-3">
+              <label
+                className="text-sm font-semibold text-gray-700"
+                htmlFor={optionsModal?.followupQuestion || prometixConfig().get().followupQuestion}
+              >
+                {optionsModal?.followupQuestion || prometixConfig().get().followupQuestion}
+              </label>
+              <textarea
+                className="w-full h-24 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500 placeholder:text-sm bg-white text-black mt-1"
+                value={state.comment || ''}
+                id={optionsModal?.followupQuestion || prometixConfig().get().followupQuestion}
+                onChange={(e) => setState({ ...state, comment: e.target.value })}
+              />
+            </div>
             <button
               className="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg mt-4 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400"
               onClick={handleSubmit}

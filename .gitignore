@@ -11,3 +11,4 @@ App.d.ts
 hooks.d.ts
 development/*
 elements/*
+services.d.ts

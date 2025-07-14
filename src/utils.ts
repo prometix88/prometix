@@ -1,10 +1,13 @@
 export interface FeedbackConfig {
+  // content survey
   title: string;
   thankyou: string;
   textSubmitted: string;
   textButton: string;
   descriptionScore: string;
   illustration: string;
+  followupQuestion: string;
+
   // API
   api: {
     submit: {
@@ -12,6 +15,10 @@ export interface FeedbackConfig {
       url: string;
     };
     check: {
+      method: string;
+      url: string;
+    };
+    surveyContent: {
       method: string;
       url: string;
     };
@@ -33,6 +40,7 @@ export const prometixConfig = () => {
     illustration:
       rawConfig?.illustration ??
       'https://www.pngall.com/wp-content/uploads/12/Illustration-PNG-Free-Image.png',
+    followupQuestion: rawConfig?.followupQuestion || 'Apa alasan Anda?',
     // API
     api: {
       submit: {
@@ -43,6 +51,10 @@ export const prometixConfig = () => {
         url:
           rawConfig?.api?.check?.url || 'https://nps-api.telkom-digital.id/v1/feedback/validation',
         method: rawConfig?.api?.check?.method || 'POST',
+      },
+      surveyContent: {
+        url: rawConfig?.api?.surveyContent?.url || 'https://nps-api.telkom-digital.id/v1/content',
+        method: rawConfig?.api?.surveyContent?.method || 'POST',
       },
     },
     // OTHERS
