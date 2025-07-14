@@ -25,8 +25,8 @@ export default function App() {
   return (
     <PrometixProvider
       config={{
-        surveyId: 'your survey id', // required, can be overridden later
-        customerId: '', // optional, can be overridden later
+        surveyId: 'your survey id', // required, can be overridden later if hideFeedbackButton is false
+        customerId: '', // optional, can be overridden later required if hideFeedbackButton is false
       }}
     >
       {/* ...your app... */}
@@ -46,8 +46,8 @@ Tambahkan script berikut ke HTML Anda:
     if (window?.Prometix?.init) {
       window.Prometix.init({
         config: {
-          surveyId: 'your survey id', // required, can be overridden later
-          customerId: '', // optional, can be overridden later
+          surveyId: 'your survey id', // required, can be overridden later if hideFeedbackButton is false
+          customerId: '', // optional, can be overridden later required if hideFeedbackButton is false
         },
       });
       // window.Prometix = {};
