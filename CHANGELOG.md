@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/solehudin5699/prometix/compare/v1.0.0...v1.1.0) (2025-07-14)
+
+### Features
+
+* **dynamic-content:** add dynamic content survey ([3f15191](https://github.com/solehudin5699/prometix/commit/3f15191d83307fe4242e0f0d250fdd98e1a4295f))
+* **dynamic-content:** add dynamic content survey ([2ece8f9](https://github.com/solehudin5699/prometix/commit/2ece8f98c812a09f79f838f37ecbdb76f6ddf43e))
+
 ## [1.0.0](https://github.com/solehudin5699/prometix/compare/v0.1.2...v1.0.0) (2025-07-14)
 
 ### Features
