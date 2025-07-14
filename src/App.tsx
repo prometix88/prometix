@@ -6,6 +6,7 @@ import { prometixConfig, FeedbackConfig } from './utils';
 import ModalFeedback from './elements/ModalFeedback';
 import { DEFAULT_SELECTOR } from '.';
 import { createPortal } from 'react-dom';
+import { getContentSurvey } from './services';
 
 interface Payload {
   surveyId: string;
@@ -16,6 +17,7 @@ interface OptionModal {
   descriptionScore?: string;
   thankyou?: string;
   illustration?: string;
+  followupQuestion?: string;
 }
 export interface Props {
   config: Partial<FeedbackConfig>;
@@ -47,7 +49,6 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
 
   const handleShowModal = async (payload: Payload, options?: OptionModal) => {
     const config = prometixConfig().get();
-    setOptionsModal(options);
     try {
       const response = await fetch(config?.api?.check?.url, {
         method: config?.api?.check?.method,
@@ -61,6 +62,14 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
       });
       const data = await response.json();
       if (data.status === false) {
+        const content = await getContentSurvey(payload?.surveyId);
+        setOptionsModal({
+          descriptionScore: options?.descriptionScore,
+          title: content?.data?.question || options?.title,
+          thankyou: content?.data?.thank_you_message || options?.thankyou,
+          illustration: options?.illustration,
+          followupQuestion: content?.data?.follow_up_question || options?.followupQuestion,
+        });
         setDynamicPayload(payload);
         setState({ ...state, showModal: true });
         return Promise.resolve({
