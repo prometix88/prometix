@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.1.3](https://github.com/prometix88/prometix/compare/v1.1.2...v1.1.3) (2025-07-16)
+
 ## [1.1.2](https://github.com/prometix88/prometix/compare/v1.1.1...v1.1.2) (2025-07-14)
 
 ### Bug Fixes
