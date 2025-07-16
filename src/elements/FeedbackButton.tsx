@@ -64,7 +64,7 @@ function FeedbackButton() {
             strokeLinejoin="round"
           />
         </svg>
-        {state.isLoading ? 'Loading...' : prometixConfig().get().textButton}
+        {state.isLoading ? 'Loading...' : config?.textButton}
       </button>
       <ModalSubmitted
         show={state.isSubmitted}

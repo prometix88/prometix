@@ -87,13 +87,13 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
                     `w-full h-9 min-h-9 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center outline-none border-none focus:outline-none`,
                     {
                       'bg-red-500 text-white':
-                        state.selectedRating === index + 1 && state.selectedRating <= 3,
+                        state.selectedRating === index + 1 && state.selectedRating <= 6,
                       'bg-yellow-400 text-white':
                         state.selectedRating === index + 1 &&
-                        state.selectedRating > 3 &&
-                        state.selectedRating <= 7,
+                        state.selectedRating > 6 &&
+                        state.selectedRating <= 8,
                       'bg-green-500 text-white':
-                        state.selectedRating === index + 1 && state.selectedRating > 7,
+                        state.selectedRating === index + 1 && state.selectedRating > 8,
                     }
                   )}
                   onClick={() => setState({ ...state, selectedRating: index + 1 })}

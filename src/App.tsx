@@ -80,7 +80,6 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
           submitted: true,
         });
       }
-      console.log(data);
       return Promise.resolve({
         submitted: null,
         error: data?.error || 'Unknown error',
