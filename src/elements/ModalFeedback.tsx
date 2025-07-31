@@ -31,6 +31,7 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
 
   const handleSubmit = async () => {
     const config = prometixConfig().get();
+    setIsSuccess(false);
     setState({ ...state, isLoading: true });
     try {
       const response = await fetch(config?.api?.submit?.url, {

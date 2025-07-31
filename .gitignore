@@ -12,3 +12,4 @@ hooks.d.ts
 development/*
 elements/*
 services.d.ts
+.trash
