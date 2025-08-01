@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.7](https://github.com/prometix88/prometix/compare/v1.1.6...v1.1.7) (2025-08-01)
+
+### Bug Fixes
+
+* fix initial value ([2ab0785](https://github.com/prometix88/prometix/commit/2ab078542e00118681bcd3258f1933c084e2fd2b))
+
 ## [1.1.6](https://github.com/prometix88/prometix/compare/v1.1.5...v1.1.6) (2025-08-01)
 
 ### Bug Fixes
