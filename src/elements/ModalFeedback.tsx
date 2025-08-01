@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
 import { prometixConfig } from '../utils';
 import clsx from 'clsx';
@@ -62,6 +62,11 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
       setState({ ...state, isLoading: false });
     }
   };
+
+  useEffect(() => {
+    setIsSuccess(false);
+  }, [payload, optionsModal]);
+
   return (
     <Modal show={show} onClose={() => onClose()}>
       <div className="w-[350px]">
