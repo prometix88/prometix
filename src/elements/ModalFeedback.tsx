@@ -64,6 +64,11 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
 
   useEffect(() => {
     setIsSuccess(false);
+    setState({
+      selectedRating: null as null | number,
+      comment: null as null | string,
+      isLoading: false,
+    });
   }, [payload, optionsModal]);
 
   return (
