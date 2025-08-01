@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.6](https://github.com/prometix88/prometix/compare/v1.1.5...v1.1.6) (2025-08-01)
+
+### Bug Fixes
+
+* fix success condition ([07a5e10](https://github.com/prometix88/prometix/commit/07a5e10802c615cca2401991825d2ce0a3898257))
+
 ## [1.1.5](https://github.com/prometix88/prometix/compare/v1.1.4...v1.1.5) (2025-08-01)
 
 ### Bug Fixes
