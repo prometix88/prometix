@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
-import { prometixConfig } from '../utils';
+import React, { useEffect, useState } from 'react';
+import { generateColors, prometixConfig } from '../utils';
 import clsx from 'clsx';
 import { usePrometix } from '../hooks';
 import ModalSubmitted from './ModalSubmitted';
+import { getContentSurvey } from '../services';
 
 function FeedbackButton() {
   const [state, setState] = useState({
@@ -13,6 +14,12 @@ function FeedbackButton() {
     isLoading: false,
   });
   const { config, showFeedbackModal } = usePrometix();
+  const [style, setStyle] = useState<{
+    backgroundColor?: string;
+    color?: string;
+    border?: string;
+    borderLeft?: string;
+  }>();
 
   const handleOpenModal = async () => {
     const config = prometixConfig().get();
@@ -34,7 +41,26 @@ function FeedbackButton() {
     }
   };
 
+  useEffect(() => {
+    if (!config.hideFeedbackButton && !!config?.surveyId) {
+      (async () => {
+        try {
+          const content = await getContentSurvey(config?.surveyId!);
+          setStyle({
+            backgroundColor: generateColors(content?.data?.color).backgroundColor,
+            color: generateColors(content?.data?.color).textColor,
+            border: generateColors(content?.data?.color).isDark
+              ? undefined
+              : `1px solid ${generateColors(content?.data?.color).textColor}`,
+            borderLeft: 'none',
+          });
+        } catch (error) {}
+      })();
+    }
+  }, [config?.hideFeedbackButton, config?.surveyId]);
+
   if (config.hideFeedbackButton) return null;
+
   return (
     <>
       <button
@@ -42,6 +68,7 @@ function FeedbackButton() {
         style={{
           writingMode: 'vertical-rl',
           textOrientation: 'mixed',
+          ...style,
         }}
         onClick={() => handleOpenModal()}
       >
