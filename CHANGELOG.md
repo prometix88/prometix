@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0](https://github.com/prometix88/prometix/compare/v1.1.7...v1.2.0) (2025-09-02)
+
+### Features
+
+* add custom color based setting ([ae16f00](https://github.com/prometix88/prometix/commit/ae16f0036b9e41b5d90b30101112742403f41fa7))
+
 ## [1.1.7](https://github.com/prometix88/prometix/compare/v1.1.6...v1.1.7) (2025-08-01)
 
 ### Bug Fixes
