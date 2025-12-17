@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0](https://github.com/prometix88/prometix/compare/v1.2.0...v1.3.0) (2025-12-17)
+
+### Features
+
+* add opsional meta on payload when submitting ([27fef47](https://github.com/prometix88/prometix/commit/27fef47632b0f52bb3594ee4f79bd4bb31534a18))
+
 ## [1.2.0](https://github.com/prometix88/prometix/compare/v1.1.7...v1.2.0) (2025-09-02)
 
 ### Features
