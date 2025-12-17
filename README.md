@@ -26,7 +26,10 @@ export default function App() {
     <PrometixProvider
       config={{
         surveyId: 'your survey id', // can be overridden later, required if hideFeedbackButton is false
-        customerId: '', //  can be overridden later, required if hideFeedbackButton is false
+        customerId: '', //  can be overridden later, required if hideFeedbackButton is false,
+        meta: {
+          company: 'ABC',
+        }, //opsional
       }}
     >
       {/* ...your app... */}
@@ -48,6 +51,9 @@ Tambahkan script berikut ke HTML Anda:
         config: {
           surveyId: 'your survey id', // can be overridden later, required if hideFeedbackButton is false
           customerId: '', //  can be overridden later, required if hideFeedbackButton is false
+          meta: {
+            company: 'ABC',
+          }, //opsional
         },
       });
     } else {
@@ -116,8 +122,9 @@ Prometix menyediakan tiga cara utama untuk diintegrasikan:
       }
     };
 
-    customerId: string;           // ID unik untuk user (login atau anonim)
+    customerId: string;           // ID unik untuk user (userId atau anonim)
     surveyId: string;             // ID survei untuk membedakan sesi feedback
+    meta:Record<string,any>       //opsional
     hideFeedbackButton: boolean;  // Jika true, tombol trigger feedback disembunyikan
   };
 ```
@@ -193,6 +200,7 @@ window.Prometix berisi:
   },
   "customerId": "", // string
   "surveyId": "", // string
+  "meta":{},//object
   "hideFeedbackButton": boolean, // boolean
   "handler": {
     "showFeedbackModal": function, // function

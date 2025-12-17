@@ -11,6 +11,7 @@ interface Props {
   payload?: {
     surveyId: string;
     customerId: string;
+    meta?: Record<string, any>;
   };
   optionsModal?: {
     title?: string;
@@ -42,6 +43,7 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
           score: state.selectedRating,
           comment: state.comment || '',
           response_date: new Date().toISOString(),
+          meta: payload?.meta || config?.meta || {},
         }),
       });
       const data = await response.json();

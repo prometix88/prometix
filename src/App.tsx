@@ -11,6 +11,7 @@ import { getContentSurvey } from './services';
 interface Payload {
   surveyId: string;
   customerId: string;
+  meta?: Record<string, any>;
 }
 interface OptionModal {
   title?: string;

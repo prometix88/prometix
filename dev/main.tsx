@@ -9,9 +9,14 @@ root.render(
   <PrometixProvider
     config={{
       descriptionScore: 'Seberapa besar kemungkinan Anda merekomendasikan situs ini ke teman?',
-      hideFeedbackButton: true,
+      hideFeedbackButton: false,
+      // surveyId: '0ce87ced-a95f-460f-a4c3-3c4396fbabe7',
       surveyId: '1e7b2d1a-c1f0-41c3-9ff9-b60d917e97d4',
       customerId: '1e7b2d1a-c1f0-41c3-9ff9-b60d917e97d8',
+      meta: {
+        company: 'Prometix',
+        plan: 'Enterprise',
+      },
     }}
   >
     <App />

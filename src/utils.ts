@@ -25,6 +25,7 @@ export interface FeedbackConfig {
   };
   customerId: string;
   surveyId: string;
+  meta?: Record<string, any>;
   hideFeedbackButton: boolean;
 }
 
@@ -59,6 +60,7 @@ export const prometixConfig = () => {
     // OTHERS
     customerId: rawConfig?.customerId ?? getOrCreateAnonymousId(),
     surveyId: rawConfig?.surveyId ?? '',
+    meta: rawConfig?.meta,
     hideFeedbackButton: rawConfig?.hideFeedbackButton ?? false,
   };
 
