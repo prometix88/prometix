@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.4.1](https://github.com/prometix88/prometix/compare/v1.4.0...v1.4.1) (2026-03-10)
+
 ## [1.4.0](https://github.com/prometix88/prometix/compare/v1.3.0...v1.4.0) (2026-03-10)
 
 ### Features
