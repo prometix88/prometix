@@ -13,3 +13,4 @@ development/*
 elements/*
 services.d.ts
 .trash
+*.log
