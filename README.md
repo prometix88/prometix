@@ -29,7 +29,7 @@ export default function App() {
         customerId: '', //  can be overridden later, required if hideFeedbackButton is false,
         meta: {
           company: 'ABC',
-        }, //opsional
+        }, //this is optional
       }}
     >
       {/* ...your app... */}
