@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.0](https://github.com/prometix88/prometix/compare/v1.3.0...v1.4.0) (2026-03-10)
+
+### Features
+
+* **ui:** use 0-10 range slider for rating selection ([8850a75](https://github.com/prometix88/prometix/commit/8850a751af419552ec5b1bfc90d5f4116468940b))
+
 ## [1.3.0](https://github.com/prometix88/prometix/compare/v1.2.0...v1.3.0) (2025-12-17)
 
 ### Features
