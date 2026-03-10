@@ -91,29 +91,37 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
             <h1 className="text-lg font-semibold text-black leading-6 my-3">
               {optionsModal?.title || prometixConfig().get().title}
             </h1>
-            <div className="grid gap-1 grid-cols-5">
-              {Array.from({ length: 10 }).map((_, index) => (
-                <button
-                  key={index}
-                  className={clsx(
-                    `w-full h-9 min-h-9 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center outline-none border-none focus:outline-none`,
-                    {
-                      'bg-red-500 text-white':
-                        state.selectedRating === index + 1 && state.selectedRating <= 6,
-                      'bg-yellow-400 text-white':
-                        state.selectedRating === index + 1 &&
-                        state.selectedRating > 6 &&
-                        state.selectedRating <= 8,
-                      'bg-green-500 text-white':
-                        state.selectedRating === index + 1 && state.selectedRating > 8,
-                    }
-                  )}
-                  onClick={() => setState({ ...state, selectedRating: index + 1 })}
-                >
-                  {index + 1}
-                </button>
-              ))}
+
+            <div>
+              <input
+                type="range"
+                min={0}
+                max={10}
+                step={1}
+                value={state.selectedRating ?? 5}
+                onChange={(e) => setState({ ...state, selectedRating: Number(e.target.value) })}
+                className="w-full accent-blue-500 mt-2"
+                aria-label={optionsModal?.followupQuestion || prometixConfig().get().followupQuestion}
+              />
+              <div className="relative mt-1 h-4 select-none">
+                {Array.from({ length: 11 }).map((_, i) => {
+                  const left = `${(i / 10) * 100}%`;
+                  const transform = i === 0 ? undefined : i === 10 ? 'translateX(-100%)' : 'translateX(-50%)';
+                  return (
+                    <span
+                      key={i}
+                      className={clsx('absolute top-0 text-xs text-gray-500', {
+                        'text-blue-600 font-semibold': state.selectedRating === i,
+                      })}
+                      style={{ left, transform }}
+                    >
+                      {i}
+                    </span>
+                  );
+                })}
+              </div>
             </div>
+
             {(optionsModal?.descriptionScore || prometixConfig().get().descriptionScore) && (
               <p className="text-xs text-slate-500 my-2">
                 {optionsModal?.descriptionScore || prometixConfig().get().descriptionScore}
