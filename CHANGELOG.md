@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.0](https://github.com/prometix88/prometix/compare/v1.4.1...v1.5.0) (2026-03-10)
+
+### Bug Fixes
+
+* fix build ([dd62a6e](https://github.com/prometix88/prometix/commit/dd62a6e12eb0886fff14eec50b30f83e248f46b5))
+
 ## [1.4.1](https://github.com/prometix88/prometix/compare/v1.4.0...v1.4.1) (2026-03-10)
 
 ## [1.4.0](https://github.com/prometix88/prometix/compare/v1.3.0...v1.4.0) (2026-03-10)
