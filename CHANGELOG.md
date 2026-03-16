@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.1](https://github.com/prometix88/prometix/compare/v1.5.0...v1.5.1) (2026-03-16)
+
+### Bug Fixes
+
+* **ui:** default rating to 0, remove null state ([441bfa5](https://github.com/prometix88/prometix/commit/441bfa5130b91781608cb29d693120bc7828e0b6))
+
 ## [1.5.0](https://github.com/prometix88/prometix/compare/v1.4.1...v1.5.0) (2026-03-10)
 
 ### Bug Fixes
