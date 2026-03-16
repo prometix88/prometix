@@ -24,7 +24,7 @@ interface Props {
 
 function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
   const [state, setState] = useState({
-    selectedRating: null as null | number,
+    selectedRating: 0,
     comment: null as null | string,
     isLoading: false,
   });
@@ -50,7 +50,7 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
       if (Number(data?.statusCode) === 201) {
         setState({
           ...state,
-          selectedRating: null,
+          selectedRating: 0,
           comment: null,
         });
         setIsSuccess(true);
@@ -67,7 +67,7 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
   useEffect(() => {
     setIsSuccess(false);
     setState({
-      selectedRating: null as null | number,
+      selectedRating: 0,
       comment: null as null | string,
       isLoading: false,
     });
@@ -98,7 +98,7 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
                 min={0}
                 max={10}
                 step={1}
-                value={state.selectedRating ?? 5}
+                value={state.selectedRating}
                 onChange={(e) => setState({ ...state, selectedRating: Number(e.target.value) })}
                 className="w-full accent-blue-500 mt-2"
                 aria-label={optionsModal?.followupQuestion || prometixConfig().get().followupQuestion}
@@ -144,7 +144,7 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
             <button
               className="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg mt-4 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400"
               onClick={handleSubmit}
-              disabled={state.selectedRating === null || !state.comment || state.isLoading}
+              disabled={!state.comment || state.isLoading}
             >
               {state.isLoading ? 'Submitting...' : 'Submit'}
             </button>
