@@ -44,6 +44,7 @@ export const FeedbackUsContext = React.createContext<Omit<Props, 'children'> | u
 function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }) {
   const [state, setState] = useState({
     showModal: false,
+    hasSubmittedFeedback: false,
   });
   const [dynamicPayload, setDynamicPayload] = useState<Payload>();
   const [optionsModal, setOptionsModal] = useState<OptionModal>();
@@ -62,7 +63,9 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
         }),
       });
       const data = await response.json();
-      if (data.status === false) {
+      const message = typeof data?.message === 'string' ? data.message.toLowerCase() : '';
+      const isSubmitted = message.includes('already');
+      if (!isSubmitted) {
         const content = await getContentSurvey(payload?.surveyId);
         setOptionsModal({
           descriptionScore: options?.descriptionScore,
@@ -76,7 +79,7 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
         return Promise.resolve({
           submitted: false,
         });
-      } else if (data.status === true) {
+      } else {
         return Promise.resolve({
           submitted: true,
         });
@@ -114,10 +117,11 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
       {children}
       {embed ? (
         <>
-          <FeedbackButton />
+          {!state.hasSubmittedFeedback && <FeedbackButton />}
           <ModalFeedback
             show={state.showModal}
             onClose={() => setState({ ...state, showModal: false })}
+            onSuccess={() => setState({ ...state, hasSubmittedFeedback: true })}
             payload={dynamicPayload}
             optionsModal={optionsModal}
           />
@@ -125,10 +129,11 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
       ) : (
         createPortal(
           <div id={DEFAULT_SELECTOR.replace('#', '')}>
-            <FeedbackButton />
+            {!state.hasSubmittedFeedback && <FeedbackButton />}
             <ModalFeedback
               show={state.showModal}
               onClose={() => setState({ ...state, showModal: false })}
+              onSuccess={() => setState({ ...state, hasSubmittedFeedback: true })}
               payload={dynamicPayload}
               optionsModal={optionsModal}
             />

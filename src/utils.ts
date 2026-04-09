@@ -27,6 +27,7 @@ export interface FeedbackConfig {
   surveyId: string;
   meta?: Record<string, any>;
   hideFeedbackButton: boolean;
+  autoOpen: boolean;
 }
 
 export const prometixConfig = () => {
@@ -62,6 +63,7 @@ export const prometixConfig = () => {
     surveyId: rawConfig?.surveyId ?? '',
     meta: rawConfig?.meta,
     hideFeedbackButton: rawConfig?.hideFeedbackButton ?? false,
+    autoOpen: rawConfig?.autoOpen ?? false,
   };
 
   return {

@@ -11,7 +11,7 @@ function FeedbackButton() {
   const [state, setState] = useState({
     showModal: false,
     isSubmitted: false,
-    isLoading: false,
+    isLoading: false
   });
   const { config, showFeedbackModal } = usePrometix();
   const [style, setStyle] = useState<{
@@ -21,8 +21,13 @@ function FeedbackButton() {
     borderLeft?: string;
   }>();
 
+  useEffect(() => {
+    if (config.autoOpen) handleOpenModal();
+  }, [prometixConfig().get().surveyId])
+
   const handleOpenModal = async () => {
     const config = prometixConfig().get();
+    if (!config.surveyId || !config.customerId) return;
     setState({ ...state, isLoading: true });
     try {
       const checkSurvey = await showFeedbackModal({
@@ -59,8 +64,8 @@ function FeedbackButton() {
     }
   }, [config?.hideFeedbackButton, config?.surveyId]);
 
-  if (config.hideFeedbackButton) return null;
-
+  if (config.hideFeedbackButton || state.isSubmitted) return null;
+  
   return (
     <>
       <button
