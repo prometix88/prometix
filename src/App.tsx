@@ -25,7 +25,7 @@ export interface Props {
   children: React.ReactNode;
   showFeedbackModal: (
     payload: Payload,
-    options?: OptionModal
+    options?: OptionModal,
   ) => Promise<
     | {
         submitted: boolean;
@@ -38,7 +38,7 @@ export interface Props {
   hideFeedbackModal: () => void;
 }
 export const FeedbackUsContext = React.createContext<Omit<Props, 'children'> | undefined>(
-  undefined
+  undefined,
 );
 
 function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }) {
@@ -84,10 +84,6 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
           submitted: true,
         });
       }
-      return Promise.resolve({
-        submitted: null,
-        error: data?.error || 'Unknown error',
-      });
     } catch (error: any) {
       return Promise.resolve({
         submitted: null,
@@ -101,7 +97,7 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
       showFeedbackModal: handleShowModal,
       hideFeedbackModal: () => setState({ ...state, showModal: false }),
     }),
-    [props?.config]
+    [props?.config],
   );
 
   useEffect(() => {
@@ -138,7 +134,7 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
               optionsModal={optionsModal}
             />
           </div>,
-          document.body
+          document.body,
         )
       )}
     </FeedbackUsContext.Provider>
