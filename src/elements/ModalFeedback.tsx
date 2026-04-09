@@ -8,6 +8,7 @@ import clsx from 'clsx';
 interface Props {
   show: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
   payload?: {
     surveyId: string;
     customerId: string;
@@ -22,7 +23,7 @@ interface Props {
   };
 }
 
-function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
+function ModalFeedback({ show, onClose, onSuccess, payload, optionsModal }: Props) {
   const [state, setState] = useState({
     selectedRating: 0,
     comment: null as null | string,
@@ -32,6 +33,7 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
 
   const handleSubmit = async () => {
     const config = prometixConfig().get();
+    const meta = payload?.meta || config?.meta;
     setState({ ...state, isLoading: true });
     try {
       const response = await fetch(config?.api?.submit?.url, {
@@ -43,7 +45,7 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
           score: state.selectedRating,
           comment: state.comment || '',
           response_date: new Date().toISOString(),
-          meta: payload?.meta || config?.meta || {},
+          ...(meta ? { meta } : {}),
         }),
       });
       const data = await response.json();
@@ -54,6 +56,7 @@ function ModalFeedback({ show, onClose, payload, optionsModal }: Props) {
           comment: null,
         });
         setIsSuccess(true);
+        onSuccess?.();
       } else {
         alert('Terjadi kesalahan saat mengirimkan feedback.');
       }
