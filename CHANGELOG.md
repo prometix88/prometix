@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.0](https://github.com/prometix88/prometix/compare/v1.5.1...v1.6.0) (2026-04-09)
+
+### Features
+
+* **ui:** auto-open modal; hide button post-submit ([4293c72](https://github.com/prometix88/prometix/commit/4293c72b51e342b83c1aea7a083a2e7a9d9027bd))
+
+### Bug Fixes
+
+* remove unused code ([168fda0](https://github.com/prometix88/prometix/commit/168fda0f4e8f697669980b3d3163e660657fc902))
+
 ## [1.5.1](https://github.com/prometix88/prometix/compare/v1.5.0...v1.5.1) (2026-03-16)
 
 ### Bug Fixes
