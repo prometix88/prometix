@@ -20,6 +20,8 @@ interface Props {
     thankyou?: string;
     illustration?: string;
     followupQuestion?: string;
+    survey_type?: string;
+    color?: string;
   };
 }
 
@@ -49,7 +51,7 @@ function ModalFeedback({ show, onClose, onSuccess, payload, optionsModal }: Prop
         }),
       });
       const data = await response.json();
-      if (Number(data?.statusCode) === 201) {
+      if (data.status) {
         setState({
           ...state,
           selectedRating: 0,
@@ -95,35 +97,64 @@ function ModalFeedback({ show, onClose, onSuccess, payload, optionsModal }: Prop
               {optionsModal?.title || prometixConfig().get().title}
             </h1>
 
-            <div>
-              <input
-                type="range"
-                min={0}
-                max={10}
-                step={1}
-                value={state.selectedRating}
-                onChange={(e) => setState({ ...state, selectedRating: Number(e.target.value) })}
-                className="w-full accent-blue-500 mt-2"
-                aria-label={optionsModal?.followupQuestion || prometixConfig().get().followupQuestion}
-              />
-              <div className="relative mt-1 h-4 select-none">
-                {Array.from({ length: 11 }).map((_, i) => {
-                  const left = `${(i / 10) * 100}%`;
-                  const transform = i === 0 ? undefined : i === 10 ? 'translateX(-100%)' : 'translateX(-50%)';
+            {optionsModal?.survey_type?.toUpperCase() === 'CSI' ? (
+              <div className="flex justify-center gap-2 mt-6 mb-2">
+                {Array.from({ length: 5 }).map((_, i) => {
+                  const value = i + 1;
+                  const isSelected = state.selectedRating >= value;
                   return (
-                    <span
-                      key={i}
-                      className={clsx('absolute top-0 text-xs text-gray-500', {
-                        'text-blue-600 font-semibold': state.selectedRating === i,
-                      })}
-                      style={{ left, transform }}
+                    <button
+                      key={value}
+                      className="transition-transform duration-200 hover:scale-110 focus:outline-none"
+                      onClick={() => setState({ ...state, selectedRating: value })}
                     >
-                      {i}
-                    </span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill={isSelected ? (optionsModal?.color || '#eab308') : 'none'}
+                        stroke={isSelected ? (optionsModal?.color || '#eab308') : '#d1d5db'}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-10 h-10 sm:w-12 sm:h-12 transition-colors duration-200"
+                      >
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                      </svg>
+                    </button>
                   );
                 })}
               </div>
-            </div>
+            ) : (
+              <div>
+                <input
+                  type="range"
+                  min={0}
+                  max={10}
+                  step={1}
+                  value={state.selectedRating}
+                  onChange={(e) => setState({ ...state, selectedRating: Number(e.target.value) })}
+                  className="w-full accent-blue-500 mt-2"
+                  aria-label={optionsModal?.followupQuestion || prometixConfig().get().followupQuestion}
+                />
+                <div className="relative mt-1 h-4 select-none">
+                  {Array.from({ length: 11 }).map((_, i) => {
+                    const left = `${(i / 10) * 100}%`;
+                    const transform = i === 0 ? undefined : i === 10 ? 'translateX(-100%)' : 'translateX(-50%)';
+                    return (
+                      <span
+                        key={i}
+                        className={clsx('absolute top-0 text-xs text-gray-500', {
+                          'text-blue-600 font-semibold': state.selectedRating === i,
+                        })}
+                        style={{ left, transform }}
+                      >
+                        {i}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {(optionsModal?.descriptionScore || prometixConfig().get().descriptionScore) && (
               <p className="text-xs text-slate-500 my-2">

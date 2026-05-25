@@ -7,9 +7,10 @@ import { prometixConfig } from '../utils';
 interface Props {
   show: boolean;
   onClose: () => void;
+  message?: string;
 }
 
-function ModalSubmitted({ show, onClose }: Props) {
+function ModalSubmitted({ show, onClose, message }: Props) {
   return (
     <Modal show={show} onClose={() => onClose()}>
       <div className="w-[350px]">
@@ -20,7 +21,7 @@ function ModalSubmitted({ show, onClose }: Props) {
           loading="lazy"
         />
         <div className="grid place-content-center py-5 text-base text-center font-normal text-slate-800">
-          {prometixConfig().get().textSubmitted}
+          {message || prometixConfig().get().textSubmitted}
         </div>
       </div>
     </Modal>

@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import FeedbackButton from './elements/FeedbackButton';
 import { prometixConfig, FeedbackConfig } from './utils';
 import ModalFeedback from './elements/ModalFeedback';
+import ModalSubmitted from './elements/ModalSubmitted';
 import { DEFAULT_SELECTOR } from '.';
 import { createPortal } from 'react-dom';
 import { getContentSurvey } from './services';
@@ -19,6 +20,8 @@ interface OptionModal {
   thankyou?: string;
   illustration?: string;
   followupQuestion?: string;
+  survey_type?: string;
+  color?: string;
 }
 export interface Props {
   config: Partial<FeedbackConfig>;
@@ -28,12 +31,12 @@ export interface Props {
     options?: OptionModal,
   ) => Promise<
     | {
-        submitted: boolean;
-      }
+      submitted: boolean;
+    }
     | {
-        submitted: null;
-        error: any;
-      }
+      submitted: null;
+      error: any;
+    }
   >;
   hideFeedbackModal: () => void;
 }
@@ -48,6 +51,10 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
   });
   const [dynamicPayload, setDynamicPayload] = useState<Payload>();
   const [optionsModal, setOptionsModal] = useState<OptionModal>();
+  const [infoModal, setInfoModal] = useState<{ show: boolean; message: string }>({
+    show: false,
+    message: '',
+  });
 
   const handleShowModal = async (payload: Payload, options?: OptionModal) => {
     const config = prometixConfig().get();
@@ -63,9 +70,10 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
         }),
       });
       const data = await response.json();
-      const message = typeof data?.message === 'string' ? data.message.toLowerCase() : '';
-      const isSubmitted = message.includes('already');
-      if (!isSubmitted) {
+      if (!response.ok) {
+        throw new Error(data?.message || `Request failed with status ${response.status}`);
+      }
+      try {
         const content = await getContentSurvey(payload?.surveyId);
         setOptionsModal({
           descriptionScore: options?.descriptionScore,
@@ -73,18 +81,23 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
           thankyou: options?.thankyou || content?.data?.thank_you_message,
           illustration: options?.illustration,
           followupQuestion: options?.followupQuestion || content?.data?.follow_up_question,
+          survey_type: content?.data?.survey_type,
+          color: content?.data?.color,
         });
         setDynamicPayload(payload);
         setState({ ...state, showModal: true });
         return Promise.resolve({
           submitted: false,
         });
-      } else {
+      } catch (contentError: any) {
+        setInfoModal({ show: true, message: contentError?.message || 'Survey tidak ditemukan' });
         return Promise.resolve({
-          submitted: true,
+          submitted: null,
+          error: contentError?.message || 'Survey not found',
         });
       }
     } catch (error: any) {
+      setInfoModal({ show: true, message: error?.message || 'Terjadi kesalahan' });
       return Promise.resolve({
         submitted: null,
         error: error?.message || 'Unknown error',
@@ -121,6 +134,11 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
             payload={dynamicPayload}
             optionsModal={optionsModal}
           />
+          <ModalSubmitted
+            show={infoModal.show}
+            onClose={() => setInfoModal({ ...infoModal, show: false })}
+            message={infoModal.message}
+          />
         </>
       ) : (
         createPortal(
@@ -132,6 +150,11 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
               onSuccess={() => setState({ ...state, hasSubmittedFeedback: true })}
               payload={dynamicPayload}
               optionsModal={optionsModal}
+            />
+            <ModalSubmitted
+              show={infoModal.show}
+              onClose={() => setInfoModal({ ...infoModal, show: false })}
+              message={infoModal.message}
             />
           </div>,
           document.body,

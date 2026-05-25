@@ -59,13 +59,12 @@ function FeedbackButton() {
               : `1px solid ${generateColors(content?.data?.color).textColor}`,
             borderLeft: 'none',
           });
-        } catch (error) {}
+        } catch (error) { }
       })();
     }
   }, [config?.hideFeedbackButton, config?.surveyId]);
 
-  if (config.hideFeedbackButton || state.isSubmitted) return null;
-  
+  if (config.hideFeedbackButton || state.isSubmitted || !config.surveyId) return null;
   return (
     <>
       <button

@@ -12,5 +12,8 @@ export const getContentSurvey = async (surveyId: string) => {
     }),
   });
   const data = await response.json();
+  if (data?.status === false) {
+    throw new Error(data?.message || 'Survey not found');
+  }
   return data;
 };
