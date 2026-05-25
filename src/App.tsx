@@ -97,10 +97,15 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
         });
       }
     } catch (error: any) {
-      setInfoModal({ show: true, message: error?.message || 'Terjadi kesalahan' });
+      const errorMessage = error?.message || 'Terjadi kesalahan';
+      const isAlready = errorMessage.toLowerCase().includes('already');
+      if (isAlready) {
+        setState((prev) => ({ ...prev, hasSubmittedFeedback: true }));
+      }
+      setInfoModal({ show: true, message: errorMessage });
       return Promise.resolve({
         submitted: null,
-        error: error?.message || 'Unknown error',
+        error: errorMessage,
       });
     }
   };
