@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/prometix88/prometix/compare/v1.6.0...v1.7.0) (2026-05-25)
+
+### Features
+
+* add survey error handling, CSI type support, and an info modal for submission feedback ([8b3b4f2](https://github.com/prometix88/prometix/commit/8b3b4f2750881680ec98c4153ce10013ea2a858e))
+* update dev survey identifiers and handle duplicate feedback submission errors ([0756388](https://github.com/prometix88/prometix/commit/075638889876424379c5009b8531dfb8df2a8ae0))
+
 ## [1.6.0](https://github.com/prometix88/prometix/compare/v1.5.1...v1.6.0) (2026-04-09)
 
 ### Features
