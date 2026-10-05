@@ -12,5 +12,6 @@ hooks.d.ts
 development/*
 elements/*
 services.d.ts
+version.d.ts
 .trash
 *.log

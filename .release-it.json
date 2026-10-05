@@ -1,6 +1,7 @@
 {
   "hooks": {
-    "before:init": ["npm run build"]
+    "before:init": ["npm run build"],
+    "after:bump": ["npm run build", "node scripts/verify-bundle-version.mjs ${version}"]
   },
   "git": {
     "commitMessage": "release: v${version}",
