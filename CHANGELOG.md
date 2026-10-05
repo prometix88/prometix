@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.1](https://github.com/prometix88/prometix/compare/v1.8.0...v1.8.1) (2026-10-05)
+
+### Bug Fixes
+
+* **release:** rebuild after the version bump and verify the bundle version [PROM-35] ([c9fdf87](https://github.com/prometix88/prometix/commit/c9fdf873ece4be41e41bd02c26e90040defe8dbf))
+
 ## [1.8.0](https://github.com/prometix88/prometix/compare/v1.7.0...v1.8.0) (2026-10-05)
 
 ### Features
