@@ -10,6 +10,9 @@ import tailwind from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import prefixSelector from 'postcss-prefix-selector';
+import { readFileSync } from 'node:fs';
+
+const { version } = JSON.parse(readFileSync('./package.json', 'utf8'));
 
 const DEFAULT_SELECTOR = '#prometix'; //must same with DEFAULT_SELECTOR on ./src/index.tsx
 
@@ -33,6 +36,7 @@ export default [
       replace({
         preventAssignment: true,
         'process.env.NODE_ENV': JSON.stringify('production'),
+        __PROMETIX_VERSION__: JSON.stringify(version),
       }),
       resolve(),
       commonjs(),
@@ -85,6 +89,7 @@ export default [
       replace({
         preventAssignment: true,
         'process.env.NODE_ENV': JSON.stringify('production'),
+        __PROMETIX_VERSION__: JSON.stringify(version),
       }),
       resolve(),
       commonjs(),

@@ -60,7 +60,8 @@ function ModalFeedback({ show, onClose, onSuccess, payload, optionsModal }: Prop
         setIsSuccess(true);
         onSuccess?.();
       } else {
-        alert('Terjadi kesalahan saat mengirimkan feedback.');
+        // The API flags maintenance mode in the body; its message explains why submitting is paused.
+        alert(data?.maintenance === true && data?.message ? data.message : 'Terjadi kesalahan saat mengirimkan feedback.');
       }
     } catch (error) {
       alert('Terjadi kesalahan saat mengirimkan feedback.');

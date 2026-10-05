@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.0](https://github.com/prometix88/prometix/compare/v1.7.0...v1.8.0) (2026-10-05)
+
+### Features
+
+* **widget:** warn and block outdated library versions, show maintenance message [PROM-34] ([3dca5b1](https://github.com/prometix88/prometix/commit/3dca5b1f6106e7e0d69c2e5b005edff76c5d33fa))
+
 ## [1.7.0](https://github.com/prometix88/prometix/compare/v1.6.0...v1.7.0) (2026-05-25)
 
 ### Features

@@ -7,7 +7,10 @@ import ModalFeedback from './elements/ModalFeedback';
 import ModalSubmitted from './elements/ModalSubmitted';
 import { DEFAULT_SELECTOR } from '.';
 import { createPortal } from 'react-dom';
-import { getContentSurvey } from './services';
+import { checkLibraryVersion, getContentSurvey, VersionStatus } from './services';
+
+const outdatedMessage = ({ current, latest }: VersionStatus) =>
+  `Versi Prometix yang digunakan (${current}) sudah usang. Perbarui ke versi terbaru (${latest}) untuk melanjutkan.`;
 
 interface Payload {
   surveyId: string;
@@ -56,8 +59,19 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
     message: '',
   });
 
+  const showBlocked = (message: string) => {
+    setInfoModal({ show: true, message });
+    return Promise.resolve({ submitted: null as null, error: message });
+  };
+
   const handleShowModal = async (payload: Payload, options?: OptionModal) => {
     const config = prometixConfig().get();
+    // Maintenance needs no check of its own: while it is on, the API calls below
+    // answer with `maintenance: true` and its message, which the catch blocks already show.
+    const version = await checkLibraryVersion();
+    if (version.outdated) {
+      return showBlocked(outdatedMessage(version));
+    }
     try {
       const response = await fetch(config?.api?.check?.url, {
         method: config?.api?.check?.method,
@@ -70,7 +84,7 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
         }),
       });
       const data = await response.json();
-      if (!response.ok) {
+      if (!response.ok || data?.maintenance === true) {
         throw new Error(data?.message || `Request failed with status ${response.status}`);
       }
       try {
@@ -117,6 +131,12 @@ function App({ children, embed, ...props }: Partial<Props> & { embed?: boolean }
     }),
     [props?.config],
   );
+
+  useEffect(() => {
+    checkLibraryVersion().then((version) => {
+      if (version.outdated) console.warn(`[Prometix] ${outdatedMessage(version)}`);
+    });
+  }, []);
 
   useEffect(() => {
     prometixConfig().set(values.config);
