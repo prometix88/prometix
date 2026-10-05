@@ -129,6 +129,15 @@ Prometix menyediakan tiga cara utama untuk diintegrasikan:
   };
 ```
 
+#### Versi library & mode maintenance
+
+1. **Maintenance** — tidak ada panggilan API tambahan. Admin mengaktifkannya dari **Pengaturan → Widget** di dashboard NPS. Selama aktif, ketiga API widget (`api.check`, `api.surveyContent`, `api.submit`) membalas HTTP `500` dengan `maintenance: true` dan `message` berisi pesan maintenance, dan widget menampilkan pesan itu. Widget mengenali maintenance dari flag di body, bukan dari kode status, jadi tetap berjalan walau proxy menulis ulang kodenya. Tombol feedback tetap tampil.
+2. **Versi library** — saat modal akan dibuka, widget membandingkan versinya dengan `latest` di npm (`https://registry.npmjs.org/prometix/latest`). Jika versi yang terpasang lebih lama, widget menampilkan pesan untuk memperbarui ke versi terbaru dan tidak membuka survei. Peringatan yang sama juga dicetak ke `console.warn` saat halaman dimuat.
+
+Pengecekan versi dibatasi 3 detik dan **gagal-terbuka**: jika registry tidak dapat dijangkau, widget tetap berjalan normal. Hasilnya disimpan selama halaman terbuka, jadi registry hanya dipanggil sekali per muat halaman. Build yang dijalankan dari source (`vite dev`) tidak memiliki versi sehingga pengecekan versi dilewati.
+
+> **Perhatian saat rilis:** begitu versi baru dipublikasikan ke npm, semua situs yang masih memakai versi lama (termasuk yang memuat `prometix.min.js` lama) langsung terblokir sampai diperbarui.
+
 #### Example
 
 ```typeScript
